@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Book Nook - A curated digital library with detailed book information, synopses, and cover art across multiple genres.">
+  <title>The Book Nook — Curated Reads</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8; --bg-card: #fffdf7; --text-dark: #2c1810;
+      --text-mid: #6b4c32; --text-light: #9c7a5a; --gold: #c9a84c;
+      --gold-dark: #8b6914; --gold-pale: rgba(201,168,76,0.12);
+      --border: #e0d4be; --shadow-sm: 0 2px 10px rgba(44,24,16,0.07);
+      --shadow-lg: 0 18px 52px rgba(44,24,16,0.22);
+      --header: #2c1810; --radius: 14px; --t: 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text-dark); font-family: 'Lato', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+    header { background: var(--header); padding: 0 2rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .logo-icon { font-size: 1.9rem; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 700; color: var(--gold); }
+    .header-sub { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2.5px; color: #9c7a5a; font-weight: 300; }
+    .hero { background: linear-gradient(145deg, #1a0c06 0%, #2c1810 35%, #4a2616 65%, #5a3010 100%); padding: 5.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 15% 85%, rgba(201,168,76,0.1) 0%, transparent 55%), radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.07) 0%, transparent 55%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(201,168,76,0.06) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.35rem 1.1rem; border-radius: 50px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5.5vw, 3.8rem); font-weight: 700; color: #f5f0e8; line-height: 1.22; margin-bottom: 1.25rem; }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero-desc { font-size: 1.05rem; font-weight: 300; color: #b8956a; max-width: 500px; margin: 0 auto 2.75rem; line-height: 1.85; }
+    .stats-row { display: inline-flex; align-items: stretch; border: 1px solid rgba(201,168,76,0.28); border-radius: 60px; overflow: hidden; background: rgba(0,0,0,0.25); }
+    .stat-item { padding: 0.8rem 1.8rem; text-align: center; }
+    .stat-item + .stat-item { border-left: 1px solid rgba(201,168,76,0.22); }
+    .stat-num { display: block; font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .stat-label { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.8px; color: #806040; margin-top: 0.2rem; }
+    .filters-wrap { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 0.9rem 2rem; position: sticky; top: 68px; z-index: 90; box-shadow: var(--shadow-sm); }
+    .filters-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; }
+    .filter-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.8px; color: var(--text-light); margin-right: 0.4rem; flex-shrink: 0; }
+    .filter-btn { padding: 0.38rem 1rem; border-radius: 50px; border: 1.5px solid var(--border); background: transparent; color: var(--text-mid); font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all var(--t); white-space: nowrap; user-select: none; }
+    .filter-btn:hover { border-color: var(--gold); color: var(--gold-dark); background: var(--gold-pale); transform: translateY(-1px); }
+    .filter-btn.active { background: var(--header); border-color: var(--header); color: var(--gold); }
+    main { flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; padding: 2.5rem 2rem 5rem; }
+    .section-head { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 2rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.55rem; color: var(--text-dark); }
+    .results-count { font-size: 0.82rem; color: var(--text-light); }
+    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(192px, 1fr)); gap: 1.8rem; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .book-card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-decoration: none; display: flex; flex-direction: column; cursor: pointer; transition: transform var(--t), box-shadow var(--t), border-color var(--t); animation: fadeUp 0.45s ease both; position: relative; }
+    .book-card:hover { transform: translateY(-8px) rotate(-0.4deg); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+    .book-card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: linear-gradient(to bottom, var(--gold), var(--gold-dark)); opacity: 0; transition: opacity var(--t); z-index: 2; border-radius: var(--radius) 0 0 var(--radius); }
+    .book-card:hover::before { opacity: 1; }
+    .cover-wrap { position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: linear-gradient(135deg, #d4c5a9, #b8a480); flex-shrink: 0; }
+    .cover-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s ease; }
+    .book-card:hover .cover-wrap img { transform: scale(1.07); }
+    .genre-badge { position: absolute; top: 0.65rem; right: 0.65rem; background: rgba(26,12,6,0.9); color: var(--gold); font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; padding: 0.22rem 0.6rem; border-radius: 50px; }
+    .cover-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,12,6,0.78) 0%, transparent 55%); opacity: 0; transition: opacity 0.35s ease; display: flex; align-items: flex-end; padding: 1rem; }
+    .book-card:hover .cover-overlay { opacity: 1; }
+    .view-cta { color: #f5f0e8; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+    .card-body { padding: 0.9rem 1rem 0.85rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; color: var(--text-dark); line-height: 1.35; margin-bottom: 0.28rem; }
+    .card-author { font-size: 0.76rem; color: var(--text-mid); margin-bottom: 0.65rem; }
+    .card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 0.55rem; border-top: 1px solid var(--border); font-size: 0.7rem; color: var(--text-light); }
+    .no-results { grid-column: 1 / -1; text-align: center; padding: 5rem 2rem; color: var(--text-light); }
+    .no-results h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-mid); }
+    footer { background: var(--header); color: #7a5840; text-align: center; padding: 1.75rem 2rem; font-size: 0.82rem; font-weight: 300; letter-spacing: 0.5px; }
+    footer b { color: var(--gold); font-weight: 700; }
+    @media (max-width: 640px) { .books-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } .hero { padding: 3.5rem 1.5rem 3rem; } .stat-item { padding: 0.65rem 1.2rem; } .header-sub { display: none; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo" id="logo-home">
+      <span class="logo-icon">📚</span>
+      <div class="logo-name">The Book Nook</div>
+    </a>
+    <div class="header-sub">A Curated Collection</div>
+  </div>
+</header>
+<section class="hero" id="hero-section">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">✦ Welcome to the Library ✦</div>
+    <h1>Discover Your Next<br><em>Great Read</em></h1>
+    <p class="hero-desc">A hand-picked collection of books across genres — from sweeping fantasy epics to timeless classics and spine-chilling thrillers.</p>
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-num">10</span><span class="stat-label">Books</span></div>
+      <div class="stat-item"><span class="stat-num">8</span><span class="stat-label">Genres</span></div>
+      <div class="stat-item"><span class="stat-num">4.2K</span><span class="stat-label">Pages</span></div>
+    </div>
+  </div>
+</section>
+<div class="filters-wrap" id="filter-bar">
+  <div class="filters-inner">
+    <span class="filter-label">Browse by:</span>
+    <button class="filter-btn active" data-genre="all" id="filter-all">All Books</button>
+    <button class="filter-btn" data-genre="Fantasy" id="filter-fantasy">⚔️ Fantasy</button>
+    <button class="filter-btn" data-genre="Classic" id="filter-classic">🪶 Classic</button>
+    <button class="filter-btn" data-genre="Thriller" id="filter-thriller">🔍 Thriller</button>
+    <button class="filter-btn" data-genre="Sci-Fi" id="filter-scifi">🚀 Sci-Fi</button>
+    <button class="filter-btn" data-genre="Dystopian" id="filter-dystopian">🌑 Dystopian</button>
+    <button class="filter-btn" data-genre="Adventure" id="filter-adventure">🌊 Adventure</button>
+    <button class="filter-btn" data-genre="Historical" id="filter-historical">📜 Historical</button>
+  </div>
+</div>
+<main>
+  <div class="section-head">
+    <h2 class="section-title" id="section-heading">All Books</h2>
+    <span class="results-count" id="results-count"></span>
+  </div>
+  <div class="books-grid" id="books-grid"></div>
+</main>
+<footer>
+  <p>Crafted with <b>&#9829;</b> for Readers &nbsp;&middot;&nbsp; &copy; 2025 <b>The Book Nook</b></p>
+</footer>
+<script>
+const books = [
+  { id:1, title:"Life of Pi", author:"Yann Martel", year:2001, genre:"Adventure", genreLabel:"Adventure / Philosophical Fiction", pages:319, cover:"covers/life_of_pi.jpg", synopsis:"A young Indian boy named Pi Patel survives a catastrophic shipwreck in the Pacific Ocean and finds himself adrift on a lifeboat with a Bengal tiger named Richard Parker. Over 227 harrowing days at sea, Pi must summon every ounce of ingenuity, faith, and courage to survive alongside the magnificent beast. A magical and deeply moving novel that blurs the boundary between reality and imagination — and asks us what we truly believe in, and why." },
+  { id:2, title:"The Chime Seekers", author:"Ross Montgomery", year:2021, genre:"Fantasy", genreLabel:"Middle Grade Fantasy", pages:384, cover:"covers/the_chime_seekers.jpg", synopsis:"When Yanni's little sister Ari is stolen away by faeries on a midsummer night, he embarks on a desperate adventure into the magical realm of the Fay to bring her home. Guided by an unlikely band of companions and armed only with his wits, Yanni must navigate a world of ancient magic, impossible bargains, and breathtaking wonder — all before the last chime sounds. A thrilling and enchanting tale of bravery, love, and the unbreakable bonds of family." },
+  { id:3, title:"Six of Crows", author:"Leigh Bardugo", year:2015, genre:"Fantasy", genreLabel:"YA Fantasy", pages:465, cover:"covers/six_of_crows.jpg", synopsis:"Criminal prodigy Kaz Brekker is offered a chance at the most daring heist imaginable — one that could make him and his crew unimaginably rich. But to pull it off, he needs a team of six brilliant, dangerous outcasts: a convict, a sharpshooter, a runaway, a spy, a Heartrender, and a thief. Each harbors their own secrets. Each has reasons to betray the others. A gripping tale of ambition, loyalty, and found family set in a richly imagined world of Grisha magic." },
+  { id:4, title:"Scarlet", author:"Marissa Meyer", year:2013, genre:"Sci-Fi", genreLabel:"YA Sci-Fi / Fairy-Tale Retelling", pages:454, cover:"covers/scarlet.jpg", synopsis:"Cinder, the gifted cyborg mechanic, has escaped prison and continues her desperate fight to expose the ruthless Lunar Queen Levana. Meanwhile, farm girl Scarlet Benoit's grandmother has vanished without a trace, and her investigation leads her to a magnetic and dangerous street fighter named Wolf. A thrilling, action-packed retelling of Little Red Riding Hood woven into a futuristic world of androids, cyborgs, and interplanetary political intrigue." },
+  { id:5, title:"Lord of Mysteries, Vol. 1", author:"Cuttlefish That Loves Diving", year:2025, genre:"Fantasy", genreLabel:"Dark Fantasy / Steampunk", pages:580, cover:"covers/lord_of_mysteries.jpg", synopsis:"In a Victorian-era steampunk world where supernatural powers are obtained through mysterious Sequences, Zhou Mingrui awakens in a stranger's body with fragmented memories and an ominous sealed letter. Navigating a labyrinth of secret societies, occult orders, and eldritch horrors lurking beneath gaslit streets, he must uncover the truth about his unexplained death — and the ancient watching entity known only as the Lord of Mysteries. An intricately layered dark fantasy that rewards every page." },
+  { id:6, title:"The Maidens", author:"Alex Michaelides", year:2021, genre:"Thriller", genreLabel:"Mystery / Thriller", pages:352, cover:"covers/the_maidens.jpg", synopsis:"When a student at Cambridge University is found brutally murdered, group therapist Mariana Andros travels to the ancient campus to support her grieving niece. She quickly becomes obsessed with Edward Fosca — a charismatic professor of Greek tragedy idolized by a secret society of female students called The Maidens. Everyone believes Fosca is innocent. Everyone except Mariana. A dark, hypnotic thriller steeped in Greek mythology, twisted psychology, and breathtaking suspense." },
+  { id:7, title:"The Light Beyond the Garden Wall", author:"Scott Whitehead", year:2019, genre:"Historical", genreLabel:"Historical / Biblical Fiction", pages:176, cover:"covers/the_light_beyond_the_garden_wall.jpg", synopsis:"A profound and intimate journey through the Biblical landscape of ancient Israel, following a young man's spiritual pilgrimage of faith, doubt, and divine encounter. Set against the sweeping backdrop of sacred history, this quietly powerful story asks what it truly means to seek God — and what light awaits beyond the walls we erect around our own hearts. A moving meditation on hope, redemption, and the path that leads us home." },
+  { id:8, title:"Little Women", author:"Louisa May Alcott", year:1868, genre:"Classic", genreLabel:"Classic", pages:759, cover:"covers/little_women.jpg", synopsis:"The beloved story of four sisters — spirited Jo, gentle Meg, shy Beth, and ambitious Amy — growing up in New England during the Civil War era while their father serves as a military chaplain. As they navigate love, loss, creative ambition, and the pressures of society, each sister must forge her own path to womanhood. A timeless and deeply human portrait of family, courage, and the joy of becoming who you are truly meant to be, cherished by generations of readers worldwide." },
+  { id:9, title:"Pride and Prejudice", author:"Jane Austen", year:1813, genre:"Classic", genreLabel:"Classic", pages:432, cover:"covers/pride_and_prejudice.jpg", synopsis:"The witty and spirited Elizabeth Bennet must navigate the marriage-obsessed pressures of 19th-century English society while her mother schemes to secure husbands for all five Bennet daughters. Her stormy first encounter with the proud and wealthy Mr. Darcy sparks a battle of sharp wit, stubborn pride, and slowly softening hearts. A masterpiece of romantic comedy and incisive social satire — as dazzling, funny, and moving today as the day it was first published." },
+  { id:10, title:"The Handmaid's Tale", author:"Margaret Atwood", year:1985, genre:"Dystopian", genreLabel:"Dystopian Fiction", pages:311, cover:"covers/the_handmaids_tale.jpg", synopsis:"In the near future, the United States has been replaced by Gilead — a theocratic military dictatorship where fertile women called Handmaids are forced to bear children for the ruling class. Offred, assigned to a powerful Commander and his wife, tells her story in stolen whispers: a record of daily survival, quiet resistance, and the desperate hope for freedom. A chilling, unforgettable, and profoundly prescient vision of what power can do — and what it cannot break." }
+];
+
+function renderBooks(list) {
+  const grid = document.getElementById('books-grid');
+  const countEl = document.getElementById('results-count');
+  grid.innerHTML = '';
+  if (list.length === 0) {
+    grid.innerHTML = '<div class="no-results"><h3>No books in this genre</h3><p>Try selecting a different category above.</p></div>';
+    countEl.textContent = '';
+    return;
+  }
+  countEl.textContent = list.length + ' book' + (list.length !== 1 ? 's' : '') + ' found';
+  list.forEach(function(book, i) {
+    var a = document.createElement('a');
+    a.className = 'book-card';
+    a.href = 'book.html?id=' + book.id;
+    a.id = 'book-card-' + book.id;
+    a.setAttribute('aria-label', book.title + ' by ' + book.author);
+    a.style.animationDelay = (i * 0.06) + 's';
+    a.innerHTML =
+      '<div class="cover-wrap">' +
+        '<img src="' + book.cover + '" alt="' + book.title + ' cover" loading="lazy" onerror="this.style.display=\'none\'">' +
+        '<span class="genre-badge">' + book.genre + '</span>' +
+        '<div class="cover-overlay"><span class="view-cta">View Details &rarr;</span></div>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-title">' + book.title + '</div>' +
+        '<div class="card-author">' + book.author + '</div>' +
+        '<div class="card-meta"><span>' + book.year + '</span><span>' + (book.pages ? book.pages + ' pp.' : '') + '</span></div>' +
+      '</div>';
+    grid.appendChild(a);
+  });
+}
+
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var genre = btn.dataset.genre;
+    document.getElementById('section-heading').textContent = genre === 'all' ? 'All Books' : genre + ' Books';
+    renderBooks(genre === 'all' ? books : books.filter(function(b) { return b.genre === genre; }));
+  });
+});
+
+renderBooks(books);
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+== BOOK COVER NAMING GUIDE ==
+Save each uploaded cover image into THIS folder (covers/) with EXACTLY these filenames:
+
+1.  life_of_pi.jpg              → Life of Pi (Yann Martel)
+2.  the_chime_seekers.jpg       → The Chime Seekers (Ross Montgomery)
+3.  six_of_crows.jpg            → Six of Crows (Leigh Bardugo)
+4.  scarlet.jpg                 → Scarlet (Marissa Meyer)
+5.  pride_and_prejudice.jpg     → Pride and Prejudice (Jane Austen)
+6.  the_maidens.jpg             → The Maidens (Alex Michaelides)
+7.  lord_of_mysteries.jpg       → Lord of Mysteries Vol. 1
+8.  the_light_beyond_the_garden_wall.jpg → The Light Beyond the Garden Wall
+9.  little_women.jpg            → Little Women (Louisa May Alcott)
+10. the_handmaids_tale.jpg      → The Handmaid's Tale (Margaret Atwood)
+
+HOW TO SAVE:
+- Right-click each image in the chat → "Save image as..."
+- Navigate to the covers/ folder
+- Rename to the exact filename above (lowercase, underscores, .jpg)
+
+After saving all 10 images, open index.html in your browser and the covers will appear!
